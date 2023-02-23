@@ -1,0 +1,42 @@
+allOf:
+  - $ref: "#/components/schemas/UserKey"
+  - type: object
+    required:
+      - attributes
+    properties:
+      attributes:
+        type: object
+        required:
+          - module
+          - module_id
+          - created_at
+        properties:
+          module:
+            type: string
+            description: module name
+            example: "telegram"
+          module_id:
+            type: integer
+            format: int64
+            description: user id from module
+            example: "12345"
+          created_at:
+            type: time.Time
+            description: timestamp without timezone when user was created
+            example: "2023-01-26 08:45:54"
+          username:
+            type: string
+            description: username from module
+            example: "mhrynenko"
+          phone:
+            type: string
+            description: phone from module
+            example: "380..."
+          name:
+            type: string
+            description: name from module
+            example: "Max "
+          email:
+            type: string
+            description: email from module
+            example: "...@mail.com"

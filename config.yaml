@@ -1,0 +1,26 @@
+log:
+  level: debug
+  disable_sentry: true
+
+db:
+  url: "postgres://unverified:unverified@localhost:5467/unverified?sslmode=disable"
+
+amqp:
+  topic: "unverified-svc"
+  publisher: "amqp://guest:guest@localhost:5672/" #telegram_publisher
+  subscriber: "amqp://guest:guest@localhost:5672/" #telegram_receiver
+
+jwt:
+  secret: SuPeR SeCrEt PhRaSe
+  refresh_life: 6h
+  access_life: 10m5s
+
+listener:
+  addr: :9002
+
+cop:
+  disabled: true
+  endpoint: "http://..."
+  upstream: "http://..."
+  service_name: unverified-svc
+  service_port: 80

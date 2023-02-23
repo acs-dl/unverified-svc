@@ -1,0 +1,6 @@
+in: query
+name: 'filter[search]'
+required: false
+schema:
+  type: string
+  description: Parameter to search in unverified users list.
