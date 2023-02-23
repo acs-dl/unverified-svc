@@ -3,9 +3,9 @@
 CREATE TABLE IF NOT EXISTS users (
     id BIGSERIAL PRIMARY KEY,
     module_id BIGINT NOT NULL,
-    username TEXT UNIQUE,
-    phone TEXT UNIQUE,
-    email TEXT UNIQUE,
+    username TEXT,
+    phone TEXT,
+    email TEXT,
     module TEXT NOT NULL,
     name TEXT,
     created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
