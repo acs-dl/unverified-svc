@@ -16,7 +16,7 @@ type UserAttributes struct {
 	// module name
 	Module string `json:"module"`
 	// user id from module
-	ModuleId int64 `json:"module_id"`
+	ModuleId string `json:"module_id"`
 	// name from module
 	Name *string `json:"name,omitempty"`
 	// phone from module

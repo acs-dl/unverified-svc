@@ -36,6 +36,6 @@ type User struct {
 	Email     *string   `json:"email" db:"email" structs:"email,omitempty"`
 	Name      *string   `json:"name" db:"name" structs:"name,omitempty"`
 	Module    string    `json:"module" db:"module" structs:"module"`
-	ModuleId  int64     `json:"module_id" db:"module_id" structs:"module_id"`
+	ModuleId  string    `json:"module_id" db:"module_id" structs:"module_id"`
 	CreatedAt time.Time `json:"created_at" db:"created_at" structs:"-"`
 }

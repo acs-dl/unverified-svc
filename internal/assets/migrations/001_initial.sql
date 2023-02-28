@@ -2,7 +2,7 @@
 
 CREATE TABLE IF NOT EXISTS users (
     id BIGSERIAL PRIMARY KEY,
-    module_id BIGINT NOT NULL,
+    module_id TEXT NOT NULL,
     username TEXT,
     phone TEXT,
     email TEXT,
