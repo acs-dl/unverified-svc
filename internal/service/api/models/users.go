@@ -11,6 +11,12 @@ func NewUserListResponse(users []data.User) UserListResponse {
 	}
 }
 
+func NewUserResponse(user data.User) resources.UserResponse {
+	return resources.UserResponse{
+		Data: newUser(user),
+	}
+}
+
 func newUserList(users []data.User) []resources.User {
 	result := make([]resources.User, 0)
 

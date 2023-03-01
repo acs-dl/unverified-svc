@@ -13,13 +13,14 @@ type Users interface {
 	Select() ([]User, error)
 	Get() (*User, error)
 
+	WithGroupedModules(search string) Users
+
 	FilterByModules(modules ...string) Users
 	FilterByUsernames(usernames ...string) Users
 	FilterByPhones(phones ...string) Users
 	FilterByEmails(emails ...string) Users
 
 	SearchBy(search string) Users
-	GroupBy(column string) Users
 
 	ResetFilters() Users
 
