@@ -12,9 +12,11 @@ allOf:
           - created_at
         properties:
           module:
-            type: string
             description: module name
-            example: "telegram"
+            type: array
+            items:
+              type: string
+              example: "telegram"
           module_id:
             type: string
             description: user id from module
