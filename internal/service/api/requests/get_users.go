@@ -1,6 +1,9 @@
 package requests
 
 import (
+	validation "github.com/go-ozzo/ozzo-validation/v4"
+
+	"gitlab.com/distributed_lab/acs/unverified-svc/internal/data"
 	"gitlab.com/distributed_lab/kit/pgdb"
 	"gitlab.com/distributed_lab/urlval"
 	"net/http"
@@ -8,14 +11,24 @@ import (
 
 type GetUsersRequest struct {
 	pgdb.OffsetPageParams
-
-	Search *string `filter:"search"`
+	data.SortParams
+	Search  *string  `filter:"search"`
+	Modules []string `filter:"modules"`
 }
 
-func NewGetUsersRequest(r *http.Request) (GetUsersRequest, error) {
+func NewGetUsersRequest(r *http.Request) (*GetUsersRequest, error) {
 	var request GetUsersRequest
 
 	err := urlval.Decode(r.URL.Query(), &request)
+	if err != nil {
+		return nil, err
+	}
 
-	return request, err
+	return &request, request.validate()
+}
+
+func (r *GetUsersRequest) validate() error {
+	return validation.Errors{
+		"page[sort]": validation.Validate(r.Param, validation.In("created_at", "name", "username")),
+	}.Filter()
 }

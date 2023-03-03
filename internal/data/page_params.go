@@ -5,64 +5,35 @@ import (
 	"gitlab.com/distributed_lab/kit/pgdb"
 	"net/http"
 	"strconv"
-
-	"gitlab.com/distributed_lab/logan/v3"
-	"gitlab.com/distributed_lab/logan/v3/errors"
 )
 
 const (
 	pageParamLimit  = "page[limit]"
 	pageParamNumber = "page[number]"
-	pageParamCursor = "page[cursor]"
 	pageParamOrder  = "page[order]"
+	pageParamSort   = "page[order]"
 )
 
-// OrderType - represents sorting order of the query
-type OrderType string
-
-const (
-	// OrderAsc - ascending order
-	OrderAsc OrderType = "asc"
-	// OrderDesc - descending order
-	OrderDesc OrderType = "desc"
-)
-
-const (
-	OrderAscending         = "asc"
-	OrderDescending        = "desc"
-	defaultLimit    uint64 = 15
-	maxLimit        uint64 = 100
-)
-
-// Invert - inverts order by
-func (o OrderType) Invert() OrderType {
-	switch o {
-	case OrderDesc:
-		return OrderAsc
-	case OrderAsc:
-		return OrderDesc
-	default:
-		panic(errors.From(errors.New("unexpected order type"), logan.F{
-			"order_type": o,
-		}))
-	}
+type SortParams struct {
+	Param string `page:"sort" default:"created_at"`
 }
 
-func GetOffsetLinksForPGParams(r *http.Request, p pgdb.OffsetPageParams) *resources.Links {
+func GetOffsetLinks(r *http.Request, p pgdb.OffsetPageParams, s SortParams) *resources.Links {
 	result := resources.Links{
-		Next: getOffsetLink(r, p.PageNumber+1, p.Limit, OrderType(p.Order)),
-		Self: getOffsetLink(r, p.PageNumber, p.Limit, OrderType(p.Order)),
+		Next: getOffsetLink(r, p.PageNumber+1, p.Limit, p.Order, s.Param),
+		Self: getOffsetLink(r, p.PageNumber, p.Limit, p.Order, s.Param),
 	}
 
 	return &result
 }
 
-func getOffsetLink(r *http.Request, pageNumber, limit uint64, order OrderType) string {
+func getOffsetLink(r *http.Request, pageNumber, limit uint64, order, sort string) string {
 	u := r.URL
 	query := u.Query()
 	query.Set(pageParamNumber, strconv.FormatUint(pageNumber, 10))
 	query.Set(pageParamLimit, strconv.FormatUint(limit, 10))
-	query.Set(pageParamOrder, string(order))
+	query.Set(pageParamSort, sort)
+	query.Set(pageParamOrder, order)
 	u.RawQuery = query.Encode()
 	return u.String()
 }

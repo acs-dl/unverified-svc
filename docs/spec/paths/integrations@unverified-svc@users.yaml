@@ -6,7 +6,9 @@ get:
   description: Endpoint for getting unverified users from modules.
   parameters:
     - $ref: '#/components/parameters/searchParam'
+    - $ref: '#/components/parameters/modulesParam'
     - $ref: '#/components/parameters/pageLimitParam'
+    - $ref: '#/components/parameters/pageSortParam'
     - $ref: '#/components/parameters/pageNumberParam'
     - $ref: '#/components/parameters/sortingParam'
   responses:
