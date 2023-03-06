@@ -122,9 +122,9 @@ func (q *UsersQ) SearchBy(search string) data.Users {
 
 	q.sql = q.sql.Where(sq.Or{
 		sq.ILike{"t.username": search},
-		sq.ILike{"m.phone": search},
-		sq.ILike{"m.email": search},
 		sq.ILike{"m.name": search},
+		//sq.ILike{"m.phone": search},
+		//sq.ILike{"m.email": search},
 	})
 
 	return q
