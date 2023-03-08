@@ -12,8 +12,8 @@ import (
 type GetUsersRequest struct {
 	pgdb.OffsetPageParams
 	data.SortParams
-	Search  *string  `filter:"search"`
-	Modules []string `filter:"modules"`
+	Search *string `filter:"search"`
+	Module *string `filter:"module"`
 }
 
 func NewGetUsersRequest(r *http.Request) (*GetUsersRequest, error) {

@@ -130,13 +130,13 @@ func (q *UsersQ) SearchBy(search string) data.Users {
 	return q
 }
 
-func (q *UsersQ) WithGroupedModules(modules ...string) data.Users {
+func (q *UsersQ) WithGroupedModules(modules *string) data.Users {
 	selectGroupedUsers := sq.Select("username", "MAX(created_at) as created_at", "string_agg(module, ',') as module").
 		From(usersTableName).
 		GroupBy("username")
 
-	if len(modules) != 0 {
-		selectGroupedUsers = selectGroupedUsers.Where(sq.Eq{"module": modules})
+	if modules != nil {
+		selectGroupedUsers = selectGroupedUsers.Where(sq.Eq{"module": *modules})
 	}
 
 	q.sql = sq.Select("t.username, t.module, t.created_at, m.name, m.phone, m.email, m.id, m.module_id").
@@ -152,13 +152,13 @@ func (q *UsersQ) Count() data.Users {
 	return q
 }
 
-func (q *UsersQ) CountWithGroupedModules(modules ...string) data.Users {
+func (q *UsersQ) CountWithGroupedModules(module *string) data.Users {
 	selectGroupedUsers := sq.Select("username", "MAX(created_at) as created_at", "string_agg(module, ',') as module").
 		From(usersTableName).
 		GroupBy("username")
 
-	if len(modules) != 0 {
-		selectGroupedUsers = selectGroupedUsers.Where(sq.Eq{"module": modules})
+	if module != nil {
+		selectGroupedUsers = selectGroupedUsers.Where(sq.Eq{"module": *module})
 	}
 
 	q.sql = sq.Select("COUNT (*)").

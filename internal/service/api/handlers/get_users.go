@@ -22,14 +22,14 @@ func GetUsers(w http.ResponseWriter, r *http.Request) {
 		search = *request.Search
 	}
 
-	totalCount, err := UsersQ(r).CountWithGroupedModules(request.Modules...).SearchBy(search).GetTotalCount()
+	totalCount, err := UsersQ(r).CountWithGroupedModules(request.Module).SearchBy(search).GetTotalCount()
 	if err != nil {
 		Log(r).WithError(err).Errorf("failed to select to get total count from db")
 		ape.RenderErr(w, problems.InternalError())
 		return
 	}
 
-	users, err := UsersQ(r).WithGroupedModules(request.Modules...).SearchBy(search).Page(request.OffsetPageParams, request.SortParams).Select()
+	users, err := UsersQ(r).WithGroupedModules(request.Module).SearchBy(search).Page(request.OffsetPageParams, request.SortParams).Select()
 	if err != nil {
 		Log(r).WithError(err).Errorf("failed to select unverified users from db")
 		ape.RenderErr(w, problems.InternalError())
