@@ -2,9 +2,8 @@ package api
 
 import (
 	"fmt"
-	auth "gitlab.com/distributed_lab/acs/auth/middlewares"
-
 	"github.com/go-chi/chi"
+	auth "gitlab.com/distributed_lab/acs/auth/middlewares"
 	"gitlab.com/distributed_lab/acs/unverified-svc/internal/data"
 	"gitlab.com/distributed_lab/acs/unverified-svc/internal/data/postgres"
 	"gitlab.com/distributed_lab/acs/unverified-svc/internal/service/api/handlers"
@@ -32,6 +31,10 @@ func (r *api) apiRouter() chi.Router {
 		r.Route("/users", func(r chi.Router) {
 			r.With(auth.Jwt(secret, "unverified", []string{"read", "write"}...)).
 				Get("/", handlers.GetUsers)
+		})
+		r.Route("/user", func(r chi.Router) {
+			r.With(auth.Jwt(secret, "unverified", []string{"read", "write"}...)).
+				Get("/", handlers.GetUser)
 		})
 	})
 

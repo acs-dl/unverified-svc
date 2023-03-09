@@ -29,7 +29,7 @@ func GetUsers(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	users, err := UsersQ(r).SearchBy(search).GroupBy("username").GroupBy("id").Page(request.OffsetPageParams).Select()
+	users, err := UsersQ(r).WithGroupedModules(search).Page(request.OffsetPageParams).Select()
 	if err != nil {
 		Log(r).WithError(err).Errorf("failed to select unverified users from db")
 		ape.RenderErr(w, problems.InternalError())

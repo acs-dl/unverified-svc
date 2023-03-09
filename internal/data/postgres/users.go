@@ -88,7 +88,7 @@ func (q *UsersQ) Select() ([]data.User, error) {
 	var result []data.User
 
 	err := q.db.Select(&result, q.sql)
-
+	fmt.Println(q.sql.MustSql())
 	return result, err
 }
 
@@ -130,8 +130,32 @@ func (q *UsersQ) SearchBy(search string) data.Users {
 	return q
 }
 
-func (q *UsersQ) GroupBy(column string) data.Users {
-	q.sql = q.sql.GroupBy(column)
+func (q *UsersQ) WithGroupedModules(search string) data.Users {
+	search = strings.Replace(search, " ", "%", -1)
+	search = fmt.Sprint("%", search, "%")
+
+	//SELECT t.username, t.module, t.created_at, m.name, m.phone, m.email
+	//FROM (
+	//		SELECT username, MAX(created_at) as created_at, array_agg(module) as module
+	//		FROM users
+	//		GROUP BY username
+	//	) t JOIN (SELECT DISTINCT ON (username) username, name, phone, email FROM users) m ON m.username = t.username
+	//WHERE (t.username ILIKE '%mhr%' OR m.phone ILIKE '%mhr%' OR m.email ILIKE '%mhr%' OR m.name ILIKE '%mhr%')
+	//ORDER BY t.created_at desc;
+
+	selectGroupedUsers := sq.Select("username", "MAX(created_at) as created_at", "string_agg(module, ',') as module").
+		From(usersTableName).
+		GroupBy("username")
+
+	q.sql = sq.Select("t.username, t.module, t.created_at, m.name, m.phone, m.email, m.id, m.module_id").
+		FromSelect(selectGroupedUsers, "t").
+		Join("(SELECT DISTINCT ON (username) username, name, phone, email, id, module_id FROM users) m ON m.username = t.username").
+		Where(sq.Or{
+			sq.ILike{"t.username": search},
+			sq.ILike{"m.phone": search},
+			sq.ILike{"m.email": search},
+			sq.ILike{"m.name": search},
+		})
 
 	return q
 }
@@ -156,7 +180,7 @@ func (q *UsersQ) ResetFilters() data.Users {
 }
 
 func (q *UsersQ) Page(pageParams pgdb.OffsetPageParams) data.Users {
-	q.sql = pageParams.ApplyTo(q.sql, "username")
+	q.sql = pageParams.ApplyTo(q.sql, "created_at")
 
 	return q
 }
