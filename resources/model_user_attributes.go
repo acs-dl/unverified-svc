@@ -21,6 +21,8 @@ type UserAttributes struct {
 	Name *string `json:"name,omitempty"`
 	// phone from module
 	Phone *string `json:"phone,omitempty"`
+	// submodule where user 'comes from'
+	Submodule []string `json:"submodule"`
 	// username from module
 	Username *string `json:"username,omitempty"`
 }

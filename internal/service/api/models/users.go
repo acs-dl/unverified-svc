@@ -39,6 +39,7 @@ func newUser(user data.User) resources.User {
 		Attributes: resources.UserAttributes{
 			Module:    modules,
 			ModuleId:  user.ModuleId,
+			Submodule: strings.Split(user.Submodule, ","),
 			CreatedAt: user.CreatedAt,
 			Name:      user.Name,
 			Username:  user.Username,

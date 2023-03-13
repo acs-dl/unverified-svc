@@ -16,7 +16,14 @@ func GetUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	user, err := UsersQ(r).FilterByModules(*request.Module).FilterByUsernames(*request.Username).Get()
+	//user, err := UsersQ(r).FilterByModules(*request.Module).FilterByUsernames(*request.Username).Get()
+	//if err != nil {
+	//	Log(r).WithError(err).Errorf("failed to get unverified user from db")
+	//	ape.RenderErr(w, problems.InternalError())
+	//	return
+	//}
+
+	user, err := UsersQ(r).WithGroupedSubmodules(request.Username, request.Module).Get()
 	if err != nil {
 		Log(r).WithError(err).Errorf("failed to get unverified user from db")
 		ape.RenderErr(w, problems.InternalError())
