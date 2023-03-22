@@ -24,6 +24,7 @@ registrator:
   topic: "unverified" #MODULE topic
   title: "Unverified" #MODULE title
   prefix: ""
+  is_module: false
 
 
 cop:
