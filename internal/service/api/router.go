@@ -2,6 +2,7 @@ package api
 
 import (
 	"fmt"
+
 	"github.com/go-chi/chi"
 	"gitlab.com/distributed_lab/acs/unverified-svc/internal/data"
 	"gitlab.com/distributed_lab/acs/unverified-svc/internal/data/postgres"
@@ -27,6 +28,9 @@ func (r *api) apiRouter() chi.Router {
 
 	router.Route("/integrations/unverified-svc", func(r chi.Router) {
 		// configure endpoints here
+		r.Get("/user_roles", handlers.GetUserRolesMap) // comes from orchestrator
+		r.Get("/roles", handlers.GetRolesMap)          // comes from orchestrator
+
 		r.Route("/users", func(r chi.Router) {
 			//r.With(auth.Jwt(secret, "unverified", []string{"read", "write"}...)).
 			r.Get("/", handlers.GetUsers)

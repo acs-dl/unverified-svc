@@ -27,7 +27,7 @@ allOf:
             items:
               type: string
             description: submodule where user 'comes from'
-            example: "distributed_lab/acs"
+            example: ["distributed_lab/acs", "test_acs"]
           created_at:
             type: time.Time
             description: timestamp without timezone when user was created
