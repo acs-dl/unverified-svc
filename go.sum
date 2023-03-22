@@ -62,11 +62,9 @@ github.com/a8m/expect v1.0.0/go.mod h1:4IwSCMumY49ScypDnjNbYEjgVeqy1/U2cEs3Lat96
 github.com/ajg/form v1.5.1/go.mod h1:uL1WgH+h2mgNtvBq0339dVnzXdBETtL2LeUXaIv25UY=
 github.com/alecthomas/kingpin v2.2.6+incompatible h1:5svnBTFgJjZvGKyYBtMB0+m5wvrbUHiqye8wRJMlnYI=
 github.com/alecthomas/kingpin v2.2.6+incompatible/go.mod h1:59OFYbFVLKQKq+mqrL6Rw5bR0c3ACQaawgXx0QYndlE=
-github.com/alecthomas/template v0.0.0-20160405071501-a0175ee3bccc h1:cAKDfWh5VpdgMhJosfJnn5/FoN2SRZ4p7fJNX58YPaU=
 github.com/alecthomas/template v0.0.0-20160405071501-a0175ee3bccc/go.mod h1:LOuyumcjzFXgccqObfd/Ljyb9UuFJ6TxHnclSeseNhc=
 github.com/alecthomas/template v0.0.0-20190718012654-fb15b899a751 h1:JYp7IbQjafoB+tBA3gMyHYHrpOtNuDiK/uB5uXxq5wM=
 github.com/alecthomas/template v0.0.0-20190718012654-fb15b899a751/go.mod h1:LOuyumcjzFXgccqObfd/Ljyb9UuFJ6TxHnclSeseNhc=
-github.com/alecthomas/units v0.0.0-20151022065526-2efee857e7cf h1:qet1QNfXsQxTZqLG4oE62mJzwPIB8+Tee4RNCL9ulrY=
 github.com/alecthomas/units v0.0.0-20151022065526-2efee857e7cf/go.mod h1:ybxpYRFXyAe+OPACYpWeL0wqObRcbAqCMya13uyzqw0=
 github.com/alecthomas/units v0.0.0-20211218093645-b94a6e3cc137 h1:s6gZFSlWYmbqAuRjVTiNNhvNRfY2Wxp9nhfyel4rklc=
 github.com/alecthomas/units v0.0.0-20211218093645-b94a6e3cc137/go.mod h1:OMCwj8VM1Kc9e19TLln2VL61YJF0x1XFtfdL4JdbSyE=
@@ -545,9 +543,10 @@ github.com/yuin/goldmark v1.4.0/go.mod h1:mwnBkeHKe2W/ZEtQ+71ViKU8L12m81fl3OWwC1
 github.com/yuin/goldmark v1.4.13/go.mod h1:6yULJ656Px+3vBD8DxQVa3kxgyrAnzto9xy5taEt/CY=
 gitlab.com/distributed_lab/acs/auth v0.0.0-20230221154027-dd4468a7f1f3 h1:ojhTRCVhqOLvb83gmJ81vXO4GlhJJ0ITktoz4r2HZ2g=
 gitlab.com/distributed_lab/acs/auth v0.0.0-20230221154027-dd4468a7f1f3/go.mod h1:MTJBcrAZbUve2Iz/o46D9xRhPZvEeArlf1Ug1lG6LyU=
+gitlab.com/distributed_lab/acs/auth v0.0.0-20230309115252-2c1f9e1d211a h1:ZD9Htsle72NgSMdHb292tGUWXQcDToErcPAsaoC7ir8=
+gitlab.com/distributed_lab/acs/auth v0.0.0-20230309115252-2c1f9e1d211a/go.mod h1:0kZvT9LUCzy0cORWP21ue/u4CAuRcJWzO3ANJBCYc3A=
 gitlab.com/distributed_lab/ape v1.7.1 h1:LpTmZgG7Lvx6ulopQbH2aWI3s8ey9FsKVjbic3ZQIy4=
 gitlab.com/distributed_lab/ape v1.7.1/go.mod h1:Qy9Y2arL0hmZIpVpctGEFhdrVsjWtyVJ5G+bZWcFT4s=
-gitlab.com/distributed_lab/figure v2.1.0+incompatible h1:8kNtvWO91BSQ4OsqL2P3qNWSBnh/Q/TdWB8vHy8xvNI=
 gitlab.com/distributed_lab/figure v2.1.0+incompatible/go.mod h1:tk+aPBohT49MGPLy5+eVbE1HpD/CaC5drBHfVpRI8eE=
 gitlab.com/distributed_lab/figure v2.1.2+incompatible h1:xO1KCYPK9KFx6OUBOaJ62d8vYd1R3aNgidHlC/ZtVBA=
 gitlab.com/distributed_lab/figure v2.1.2+incompatible/go.mod h1:tk+aPBohT49MGPLy5+eVbE1HpD/CaC5drBHfVpRI8eE=
