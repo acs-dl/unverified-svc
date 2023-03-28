@@ -13,7 +13,7 @@ type Users interface {
 	Select() ([]User, error)
 	Get() (*User, error)
 
-	WithGroupedModules(search string) Users
+	WithGroupedModules(modules *string) Users
 
 	FilterByModules(modules ...string) Users
 	FilterByUsernames(usernames ...string) Users
@@ -25,9 +25,10 @@ type Users interface {
 	ResetFilters() Users
 
 	Count() Users
+	CountWithGroupedModules(modules *string) Users
 	GetTotalCount() (int64, error)
 
-	Page(pageParams pgdb.OffsetPageParams) Users
+	Page(pageParams pgdb.OffsetPageParams, sortParams SortParams) Users
 }
 
 type User struct {
