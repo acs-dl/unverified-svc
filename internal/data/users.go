@@ -14,6 +14,7 @@ type Users interface {
 	Get() (*User, error)
 
 	WithGroupedModules(modules *string) Users
+	WithGroupedSubmodules(username, module *string) Users
 
 	FilterByModules(modules ...string) Users
 	FilterByUsernames(usernames ...string) Users
@@ -38,6 +39,7 @@ type User struct {
 	Email     *string   `json:"email" db:"email" structs:"email,omitempty"`
 	Name      *string   `json:"name" db:"name" structs:"name,omitempty"`
 	Module    string    `json:"module" db:"module" structs:"module"`
+	Submodule string    `json:"submodule" db:"submodule" structs:"submodule"`
 	ModuleId  string    `json:"module_id" db:"module_id" structs:"module_id"`
 	CreatedAt time.Time `json:"created_at" db:"created_at" structs:"-"`
 }
