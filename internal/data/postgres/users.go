@@ -3,12 +3,13 @@ package postgres
 import (
 	"database/sql"
 	"fmt"
+	"strings"
+	"time"
+
 	sq "github.com/Masterminds/squirrel"
 	"github.com/fatih/structs"
 	"gitlab.com/distributed_lab/acs/unverified-svc/internal/data"
 	"gitlab.com/distributed_lab/kit/pgdb"
-	"strings"
-	"time"
 )
 
 const usersTableName = "users"
@@ -122,8 +123,12 @@ func (q *UsersQ) SearchBy(search string) data.Users {
 	return q
 }
 
-func (q *UsersQ) WithGroupedModules(module *string) data.Users {
-	selectGroupedUsers := sq.Select("username", "MAX(created_at) as created_at", "string_agg(DISTINCT module, ',') as module").
+func (q *UsersQ) WithGroupedModulesAndSubmodules(module *string) data.Users {
+	selectGroupedUsers := sq.Select(
+		"username",
+		"MAX(created_at) as created_at",
+		"string_agg(DISTINCT module, ',') as module",
+		"string_agg(submodule, ',') as submodule").
 		From(usersTableName).
 		GroupBy("username")
 
@@ -131,7 +136,7 @@ func (q *UsersQ) WithGroupedModules(module *string) data.Users {
 		selectGroupedUsers = selectGroupedUsers.Where(sq.Eq{"module": *module})
 	}
 
-	q.sql = sq.Select("t.username, t.module, t.created_at, m.name, m.phone, m.email, m.id, m.module_id").
+	q.sql = sq.Select("t.username, t.module, t.submodule, t.created_at, m.name, m.phone, m.email, m.id, m.module_id").
 		FromSelect(selectGroupedUsers, "t").
 		Join("(SELECT DISTINCT ON (username) username, name, phone, email, id, module_id FROM users) m ON m.username = t.username")
 
@@ -139,7 +144,11 @@ func (q *UsersQ) WithGroupedModules(module *string) data.Users {
 }
 
 func (q *UsersQ) WithGroupedSubmodules(username, module *string) data.Users {
-	selectGroupedUsers := sq.Select("username", "MAX(created_at) as created_at", "string_agg(submodule, ',') as submodule", "string_agg(DISTINCT module, ',') as module").
+	selectGroupedUsers := sq.Select(
+		"username",
+		"MAX(created_at) as created_at",
+		"string_agg(submodule, ',') as submodule",
+		"string_agg(DISTINCT module, ',') as module").
 		From(usersTableName).
 		GroupBy("username")
 

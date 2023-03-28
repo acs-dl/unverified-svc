@@ -2,9 +2,12 @@ package service
 
 import (
 	"context"
-	"gitlab.com/distributed_lab/acs/unverified-svc/internal/receiver"
-	"gitlab.com/distributed_lab/acs/unverified-svc/internal/service/api"
 	"sync"
+
+	"gitlab.com/distributed_lab/acs/unverified-svc/internal/data"
+	"gitlab.com/distributed_lab/acs/unverified-svc/internal/receiver"
+	"gitlab.com/distributed_lab/acs/unverified-svc/internal/registrator"
+	"gitlab.com/distributed_lab/acs/unverified-svc/internal/service/api"
 
 	"gitlab.com/distributed_lab/acs/unverified-svc/internal/config"
 	"gitlab.com/distributed_lab/acs/unverified-svc/internal/service/types"
@@ -19,6 +22,12 @@ func Run(cfg config.Config) {
 	logger := cfg.Log().WithField("service", "main")
 	ctx := context.Background()
 	wg := new(sync.WaitGroup)
+
+	// module registration before starting all services
+	regCfg := cfg.Registrator()
+	if err := registrator.RegisterModule(data.ModuleName, regCfg); err != nil {
+		panic(err)
+	}
 
 	logger.Info("Starting all available services...")
 

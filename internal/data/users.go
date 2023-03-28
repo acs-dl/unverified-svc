@@ -1,8 +1,9 @@
 package data
 
 import (
-	"gitlab.com/distributed_lab/kit/pgdb"
 	"time"
+
+	"gitlab.com/distributed_lab/kit/pgdb"
 )
 
 type Users interface {
@@ -13,7 +14,7 @@ type Users interface {
 	Select() ([]User, error)
 	Get() (*User, error)
 
-	WithGroupedModules(modules *string) Users
+	WithGroupedModulesAndSubmodules(modules *string) Users
 	WithGroupedSubmodules(username, module *string) Users
 
 	FilterByModules(modules ...string) Users

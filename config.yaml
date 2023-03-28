@@ -16,7 +16,16 @@ jwt:
   access_life: 10m5s
 
 listener:
-  addr: :9002
+  addr: :9008
+
+registrator:
+  outer_url: "http://localhost:8000/integrations/orchestrator/modules" #endpoint to register MODULE
+  inner_url: "http://localhost:9008/integrations/unverified-svc" #endpoint to MODULE itself
+  topic: "unverified" #MODULE topic
+  title: "Unverified" #MODULE title
+  prefix: ""
+  is_module: false
+
 
 cop:
   disabled: true
