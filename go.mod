@@ -11,7 +11,7 @@ require (
 	github.com/go-chi/chi v4.1.2+incompatible
 	github.com/go-ozzo/ozzo-validation/v4 v4.2.1
 	github.com/rubenv/sql-migrate v1.3.1
-	gitlab.com/distributed_lab/acs/auth v0.0.0-20230309115252-2c1f9e1d211a
+	gitlab.com/distributed_lab/acs/auth v0.0.0-20230328135644-b4f544227e27
 	gitlab.com/distributed_lab/ape v1.7.1
 	gitlab.com/distributed_lab/figure v2.1.2+incompatible
 	gitlab.com/distributed_lab/kit v1.11.1
