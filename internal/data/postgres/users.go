@@ -3,13 +3,13 @@ package postgres
 import (
 	"database/sql"
 	"fmt"
+	"strings"
+	"time"
+
 	sq "github.com/Masterminds/squirrel"
 	"github.com/fatih/structs"
 	"gitlab.com/distributed_lab/acs/unverified-svc/internal/data"
 	"gitlab.com/distributed_lab/kit/pgdb"
-	"gitlab.com/distributed_lab/logan/v3/errors"
-	"strings"
-	"time"
 )
 
 const usersTableName = "users"
@@ -28,6 +28,7 @@ var usersColumns = []string{
 	usersTableName + ".email",
 	usersTableName + ".module",
 	usersTableName + ".name",
+	usersTableName + ".submodule",
 	usersTableName + ".created_at",
 }
 
@@ -47,7 +48,7 @@ func (q *UsersQ) Upsert(user data.User) error {
 		Set("created_at", time.Now()).MustSql()
 
 	query := sq.Insert(usersTableName).SetMap(structs.Map(user)).
-		Suffix("ON CONFLICT (module_id, module) DO "+updateStmt, args...)
+		Suffix("ON CONFLICT (module_id, module, submodule) DO "+updateStmt, args...)
 
 	return q.db.Exec(query)
 }
@@ -60,17 +61,9 @@ func (q *UsersQ) Delete(user data.User) error {
 		},
 	)
 
-	result, err := q.db.ExecWithResult(query)
-	if err != nil {
-		return err
-	}
+	err := q.db.Exec(query)
 
-	affectedRows, _ := result.RowsAffected()
-	if affectedRows == 0 {
-		return errors.Errorf("no users for module `%s` with module id `%d`", user.Module, user.ModuleId)
-	}
-
-	return nil
+	return err
 }
 
 func (q *UsersQ) Get() (*data.User, error) {
@@ -130,16 +123,43 @@ func (q *UsersQ) SearchBy(search string) data.Users {
 	return q
 }
 
-func (q *UsersQ) WithGroupedModules(modules *string) data.Users {
-	selectGroupedUsers := sq.Select("username", "MAX(created_at) as created_at", "string_agg(module, ',') as module").
+func (q *UsersQ) WithGroupedModulesAndSubmodules(module *string) data.Users {
+	selectGroupedUsers := sq.Select(
+		"username",
+		"MAX(created_at) as created_at",
+		"string_agg(DISTINCT module, ',') as module",
+		"string_agg(submodule, ',') as submodule").
 		From(usersTableName).
 		GroupBy("username")
 
-	if modules != nil {
-		selectGroupedUsers = selectGroupedUsers.Where(sq.Eq{"module": *modules})
+	if module != nil {
+		selectGroupedUsers = selectGroupedUsers.Where(sq.Eq{"module": *module})
 	}
 
-	q.sql = sq.Select("t.username, t.module, t.created_at, m.name, m.phone, m.email, m.id, m.module_id").
+	q.sql = sq.Select("t.username, t.module, t.submodule, t.created_at, m.name, m.phone, m.email, m.id, m.module_id").
+		FromSelect(selectGroupedUsers, "t").
+		Join("(SELECT DISTINCT ON (username) username, name, phone, email, id, module_id FROM users) m ON m.username = t.username")
+
+	return q
+}
+
+func (q *UsersQ) WithGroupedSubmodules(username, module *string) data.Users {
+	selectGroupedUsers := sq.Select(
+		"username",
+		"MAX(created_at) as created_at",
+		"string_agg(submodule, ',') as submodule",
+		"string_agg(DISTINCT module, ',') as module").
+		From(usersTableName).
+		GroupBy("username")
+
+	if module != nil {
+		selectGroupedUsers = selectGroupedUsers.Where(sq.Eq{"module": *module})
+	}
+	if username != nil {
+		selectGroupedUsers = selectGroupedUsers.Where(sq.Eq{"username": *username})
+	}
+
+	q.sql = sq.Select("t.username, t.module, t.created_at, t.submodule, m.name, m.phone, m.email, m.id, m.module_id").
 		FromSelect(selectGroupedUsers, "t").
 		Join("(SELECT DISTINCT ON (username) username, name, phone, email, id, module_id FROM users) m ON m.username = t.username")
 
@@ -153,7 +173,7 @@ func (q *UsersQ) Count() data.Users {
 }
 
 func (q *UsersQ) CountWithGroupedModules(module *string) data.Users {
-	selectGroupedUsers := sq.Select("username", "MAX(created_at) as created_at", "string_agg(module, ',') as module").
+	selectGroupedUsers := sq.Select("username", "MAX(created_at) as created_at", "string_agg(DISTINCT module, ',') as module").
 		From(usersTableName).
 		GroupBy("username")
 

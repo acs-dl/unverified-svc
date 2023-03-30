@@ -1,30 +1,35 @@
 -- +migrate Up
 
-CREATE TABLE IF NOT EXISTS users (
-    id BIGSERIAL PRIMARY KEY,
-    module_id TEXT NOT NULL,
-    username TEXT,
-    phone TEXT,
-    email TEXT,
-    module TEXT NOT NULL,
-    name TEXT,
-    created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+create table if not exists users (
+    id bigserial primary key,
+    module_id text not null,
+    username text,
+    phone text,
+    email text,
+    name text,
+    submodule text not null,
+    module text not null,
+    created_at timestamp without time zone default current_timestamp,
 
-    UNIQUE (module_id, module)
+    unique (module_id, module, submodule)
 );
 
-CREATE INDEX IF NOT EXISTS users_username_idx ON users(username);
-CREATE INDEX IF NOT EXISTS users_phone_idx ON users(phone);
-CREATE INDEX IF NOT EXISTS users_email_idx ON users(email);
-CREATE INDEX IF NOT EXISTS users_module_idx ON users(module);
-CREATE INDEX IF NOT EXISTS users_moduleId_idx ON users(module_id);
+create index if not exists users_username_idx on users(username);
+create index if not exists users_phone_idx on users(phone);
+create index if not exists users_email_idx on users(email);
+create index if not exists users_module_idx on users(module);
+create index if not exists users_moduleid_idx on users(module_id);
+create index if not exists users_submodule_idx on users(submodule);
 
 
 -- +migrate Down
 
-DROP TABLE IF EXISTS users;
-DROP INDEX IF EXISTS users_username_idx;
-DROP INDEX IF EXISTS users_phone_idx;
-DROP INDEX IF EXISTS users_email_idx;
-DROP INDEX IF EXISTS users_module_idx;
-DROP INDEX IF EXISTS users_moduleId_idx;
+drop index if exists users_submodule_idx;
+drop index if exists users_moduleid_idx;
+drop index if exists users_module_idx;
+drop index if exists users_email_idx;
+drop index if exists users_phone_idx;
+drop index if exists users_username_idx;
+
+
+drop table if exists users;
