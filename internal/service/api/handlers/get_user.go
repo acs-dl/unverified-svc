@@ -1,11 +1,12 @@
 package handlers
 
 import (
+	"net/http"
+
 	"gitlab.com/distributed_lab/acs/unverified-svc/internal/service/api/models"
 	"gitlab.com/distributed_lab/acs/unverified-svc/internal/service/api/requests"
 	"gitlab.com/distributed_lab/ape"
 	"gitlab.com/distributed_lab/ape/problems"
-	"net/http"
 )
 
 func GetUser(w http.ResponseWriter, r *http.Request) {
@@ -15,13 +16,6 @@ func GetUser(w http.ResponseWriter, r *http.Request) {
 		ape.RenderErr(w, problems.BadRequest(err)...)
 		return
 	}
-
-	//user, err := UsersQ(r).FilterByModules(*request.Module).FilterByUsernames(*request.Username).Get()
-	//if err != nil {
-	//	Log(r).WithError(err).Errorf("failed to get unverified user from db")
-	//	ape.RenderErr(w, problems.InternalError())
-	//	return
-	//}
 
 	user, err := UsersQ(r).WithGroupedSubmodules(request.Username, request.Module).Get()
 	if err != nil {

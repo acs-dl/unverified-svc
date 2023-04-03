@@ -15,7 +15,7 @@ func (p *processor) handleDeleteUsersAction(msg data.ModulePayload) error {
 			return errors.Wrap(err, "failed to validate fields")
 		}
 
-		if err = p.usersQ.Delete(user); err != nil {
+		if err = p.usersQ.FilterByModules(user.Module).FilterByModuleIds(user.ModuleId).Delete(); err != nil {
 			p.log.WithError(err).Errorf("failed to delete user in db for message action with id `%s`", msg.RequestId)
 			return errors.Wrap(err, "failed to delete user in user db")
 		}

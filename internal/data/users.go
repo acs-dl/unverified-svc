@@ -10,23 +10,18 @@ type Users interface {
 	New() Users
 
 	Upsert(user User) error
-	Delete(user User) error
+	Delete() error
 	Select() ([]User, error)
 	Get() (*User, error)
 
 	WithGroupedModulesAndSubmodules(modules *string) Users
 	WithGroupedSubmodules(username, module *string) Users
 
+	FilterByModuleIds(moduleIds ...string) Users
 	FilterByModules(modules ...string) Users
-	FilterByUsernames(usernames ...string) Users
-	FilterByPhones(phones ...string) Users
-	FilterByEmails(emails ...string) Users
 
 	SearchBy(search string) Users
 
-	ResetFilters() Users
-
-	Count() Users
 	CountWithGroupedModules(modules *string) Users
 	GetTotalCount() (int64, error)
 
