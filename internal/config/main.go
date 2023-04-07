@@ -16,6 +16,7 @@ type Config interface {
 
 	Amqp() *AmqpData
 	JwtParams() *JwtCfg
+	Registrator() RegistratorConfig
 }
 
 type config struct {
@@ -25,8 +26,9 @@ type config struct {
 	comfig.Listenerer
 	getter kv.Getter
 
-	amqp comfig.Once
-	jwt  comfig.Once
+	amqp        comfig.Once
+	jwt         comfig.Once
+	registrator comfig.Once
 }
 
 func New(getter kv.Getter) Config {

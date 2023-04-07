@@ -1,30 +1,27 @@
 package data
 
 import (
-	"gitlab.com/distributed_lab/kit/pgdb"
 	"time"
+
+	"gitlab.com/distributed_lab/kit/pgdb"
 )
 
 type Users interface {
 	New() Users
 
 	Upsert(user User) error
-	Delete(user User) error
+	Delete() error
 	Select() ([]User, error)
 	Get() (*User, error)
 
-	WithGroupedModules(modules *string) Users
+	WithGroupedModulesAndSubmodules(modules *string) Users
+	WithGroupedSubmodules(username, module *string) Users
 
+	FilterByModuleIds(moduleIds ...string) Users
 	FilterByModules(modules ...string) Users
-	FilterByUsernames(usernames ...string) Users
-	FilterByPhones(phones ...string) Users
-	FilterByEmails(emails ...string) Users
 
 	SearchBy(search string) Users
 
-	ResetFilters() Users
-
-	Count() Users
 	CountWithGroupedModules(modules *string) Users
 	GetTotalCount() (int64, error)
 
@@ -38,6 +35,7 @@ type User struct {
 	Email     *string   `json:"email" db:"email" structs:"email,omitempty"`
 	Name      *string   `json:"name" db:"name" structs:"name,omitempty"`
 	Module    string    `json:"module" db:"module" structs:"module"`
+	Submodule string    `json:"submodule" db:"submodule" structs:"submodule"`
 	ModuleId  string    `json:"module_id" db:"module_id" structs:"module_id"`
 	CreatedAt time.Time `json:"created_at" db:"created_at" structs:"-"`
 }

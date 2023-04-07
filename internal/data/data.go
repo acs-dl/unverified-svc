@@ -2,7 +2,7 @@ package data
 
 import "time"
 
-const ModuleName = "unverified-svc"
+const ModuleName = "unverified"
 
 type ModuleRequest struct {
 	ID            string    `db:"id" structs:"id"`
