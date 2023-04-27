@@ -49,7 +49,7 @@ func (q UsersQ) Upsert(user data.User) error {
 
 	query := sq.Insert(usersTableName).SetMap(structs.Map(user)).
 		Suffix("ON CONFLICT (module_id, module, submodule) DO "+updateStmt, args...)
-	fmt.Println(query.MustSql())
+
 	return q.db.Exec(query)
 }
 
