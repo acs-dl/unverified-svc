@@ -41,11 +41,15 @@ func (q UsersQ) New() data.Users {
 
 func (q UsersQ) Upsert(user data.User) error {
 	updateStmt, args := sq.Update(" ").
+		Set("username", user.Username).
+		Set("phone", user.Phone).
+		Set("email", user.Email).
+		Set("name", user.Name).
 		Set("created_at", time.Now()).MustSql()
 
 	query := sq.Insert(usersTableName).SetMap(structs.Map(user)).
 		Suffix("ON CONFLICT (module_id, module, submodule) DO "+updateStmt, args...)
-
+	fmt.Println(query.MustSql())
 	return q.db.Exec(query)
 }
 
