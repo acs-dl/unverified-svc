@@ -3,11 +3,18 @@ package models
 import (
 	"gitlab.com/distributed_lab/acs/unverified-svc/internal/data"
 	"gitlab.com/distributed_lab/acs/unverified-svc/resources"
+	"strings"
 )
 
 func NewUserListResponse(users []data.User) UserListResponse {
 	return UserListResponse{
 		Data: newUserList(users),
+	}
+}
+
+func NewUserResponse(user data.User) resources.UserResponse {
+	return resources.UserResponse{
+		Data: newUser(user),
 	}
 }
 
@@ -22,11 +29,17 @@ func newUserList(users []data.User) []resources.User {
 }
 
 func newUser(user data.User) resources.User {
+	modules := make([]string, 0)
+	for _, module := range strings.Split(user.Module, ",") {
+		modules = append(modules, module)
+	}
+
 	return resources.User{
 		Key: resources.NewKeyInt64(user.Id, resources.USER),
 		Attributes: resources.UserAttributes{
-			Module:    user.Module,
+			Module:    modules,
 			ModuleId:  user.ModuleId,
+			Submodule: strings.Split(user.Submodule, ","),
 			CreatedAt: user.CreatedAt,
 			Name:      user.Name,
 			Username:  user.Username,

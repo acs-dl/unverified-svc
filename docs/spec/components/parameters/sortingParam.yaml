@@ -9,4 +9,4 @@ schema:
   default: desc
   description: >-
     Order of records on the page. If sortingParam is not specified, order of
-    records is by default sorted by ID.
+    records is by default sorted by created_at.

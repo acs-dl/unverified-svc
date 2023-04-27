@@ -1,0 +1,6 @@
+in: query
+name: 'filter[username]'
+required: false
+schema:
+  type: string
+  description: Parameter to get by username value.
