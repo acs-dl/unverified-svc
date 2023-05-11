@@ -7,8 +7,8 @@ import (
 	"time"
 
 	sq "github.com/Masterminds/squirrel"
+	"github.com/acs-dl/unverified-svc/internal/data"
 	"github.com/fatih/structs"
-	"gitlab.com/distributed_lab/acs/unverified-svc/internal/data"
 	"gitlab.com/distributed_lab/kit/pgdb"
 	"gitlab.com/distributed_lab/logan/v3/errors"
 )

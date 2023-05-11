@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"gitlab.com/distributed_lab/acs/unverified-svc/internal/data"
+	"github.com/acs-dl/unverified-svc/internal/data"
 	"gitlab.com/distributed_lab/logan/v3/errors"
 )
 

@@ -2,10 +2,10 @@ package processor
 
 import (
 	"fmt"
+	"github.com/acs-dl/unverified-svc/internal/config"
+	"github.com/acs-dl/unverified-svc/internal/data"
+	"github.com/acs-dl/unverified-svc/internal/data/postgres"
 	validation "github.com/go-ozzo/ozzo-validation/v4"
-	"gitlab.com/distributed_lab/acs/unverified-svc/internal/config"
-	"gitlab.com/distributed_lab/acs/unverified-svc/internal/data"
-	"gitlab.com/distributed_lab/acs/unverified-svc/internal/data/postgres"
 	"gitlab.com/distributed_lab/logan/v3"
 	"gitlab.com/distributed_lab/logan/v3/errors"
 )

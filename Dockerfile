@@ -2,11 +2,11 @@ FROM golang:1.19-alpine as buildbase
 
 RUN apk add git build-base
 
-WORKDIR /go/src/gitlab.com/distributed_lab/acs/unverified-svc
+WORKDIR /go/src/github.com/acs-dl/unverified-svc
 COPY vendor .
 COPY . .
 
-RUN GOOS=linux go build  -o /usr/local/bin/unverified-svc /go/src/gitlab.com/distributed_lab/acs/unverified-svc
+RUN GOOS=linux go build  -o /usr/local/bin/unverified-svc /go/src/github.com/acs-dl/unverified-svc
 
 
 FROM alpine:3.9

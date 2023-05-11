@@ -4,7 +4,7 @@ import (
 	"context"
 	"net/http"
 
-	"gitlab.com/distributed_lab/acs/unverified-svc/internal/config"
+	"github.com/acs-dl/unverified-svc/internal/config"
 	"gitlab.com/distributed_lab/logan/v3/errors"
 )
 

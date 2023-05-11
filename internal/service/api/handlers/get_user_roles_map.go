@@ -3,7 +3,7 @@ package handlers
 import (
 	"net/http"
 
-	"gitlab.com/distributed_lab/acs/unverified-svc/resources"
+	"github.com/acs-dl/unverified-svc/resources"
 	"gitlab.com/distributed_lab/ape"
 )
 

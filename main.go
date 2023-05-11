@@ -3,7 +3,7 @@ package main
 import (
 	"os"
 
-	"gitlab.com/distributed_lab/acs/unverified-svc/internal/cli"
+	"github.com/acs-dl/unverified-svc/internal/cli"
 )
 
 func main() {

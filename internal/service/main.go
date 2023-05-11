@@ -4,12 +4,12 @@ import (
 	"context"
 	"sync"
 
-	"gitlab.com/distributed_lab/acs/unverified-svc/internal/receiver"
-	"gitlab.com/distributed_lab/acs/unverified-svc/internal/registrator"
-	"gitlab.com/distributed_lab/acs/unverified-svc/internal/service/api"
+	"github.com/acs-dl/unverified-svc/internal/receiver"
+	"github.com/acs-dl/unverified-svc/internal/registrator"
+	"github.com/acs-dl/unverified-svc/internal/service/api"
 
-	"gitlab.com/distributed_lab/acs/unverified-svc/internal/config"
-	"gitlab.com/distributed_lab/acs/unverified-svc/internal/service/types"
+	"github.com/acs-dl/unverified-svc/internal/config"
+	"github.com/acs-dl/unverified-svc/internal/service/types"
 )
 
 var availableServices = map[string]types.Runner{

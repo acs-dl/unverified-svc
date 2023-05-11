@@ -1,8 +1,8 @@
 package models
 
 import (
-	"gitlab.com/distributed_lab/acs/unverified-svc/internal/data"
-	"gitlab.com/distributed_lab/acs/unverified-svc/resources"
+	"github.com/acs-dl/unverified-svc/internal/data"
+	"github.com/acs-dl/unverified-svc/resources"
 	"strings"
 )
 

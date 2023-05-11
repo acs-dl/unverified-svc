@@ -3,7 +3,7 @@ package requests
 import (
 	validation "github.com/go-ozzo/ozzo-validation/v4"
 
-	"gitlab.com/distributed_lab/acs/unverified-svc/internal/data"
+	"github.com/acs-dl/unverified-svc/internal/data"
 	"gitlab.com/distributed_lab/kit/pgdb"
 	"gitlab.com/distributed_lab/urlval"
 	"net/http"

@@ -1,7 +1,7 @@
 package data
 
 import (
-	"gitlab.com/distributed_lab/acs/unverified-svc/resources"
+	"github.com/acs-dl/unverified-svc/resources"
 	"gitlab.com/distributed_lab/kit/pgdb"
 	"net/http"
 	"strconv"

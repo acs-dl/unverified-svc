@@ -7,7 +7,7 @@ Service to store unverified users
 ## Install
 
   ```
-  git clone gitlab.com/distributed_lab/acs/unverified-svc
+  git clone github.com/acs-dl/unverified-svc
   cd unverified-svc
   go build main.go
   export KV_VIPER_FILE=./config.yaml
@@ -39,8 +39,8 @@ Make sure that docker installed.
 use `docker run ` with `-p 8080:80` to expose port 80 to 8080
 
   ```
-  docker build -t gitlab.com/distributed_lab/acs/unverified-svc .
-  docker run -e KV_VIPER_FILE=/config.yaml gitlab.com/distributed_lab/acs/unverified-svc
+  docker build -t github.com/acs-dl/unverified-svc .
+  docker run -e KV_VIPER_FILE=/config.yaml github.com/acs-dl/unverified-svc
   ```
 
 ## Running from Source

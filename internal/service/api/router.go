@@ -3,11 +3,11 @@ package api
 import (
 	"fmt"
 
+	auth "github.com/acs-dl/auth-svc/middlewares"
+	"github.com/acs-dl/unverified-svc/internal/data"
+	"github.com/acs-dl/unverified-svc/internal/data/postgres"
+	"github.com/acs-dl/unverified-svc/internal/service/api/handlers"
 	"github.com/go-chi/chi"
-	auth "gitlab.com/distributed_lab/acs/auth/middlewares"
-	"gitlab.com/distributed_lab/acs/unverified-svc/internal/data"
-	"gitlab.com/distributed_lab/acs/unverified-svc/internal/data/postgres"
-	"gitlab.com/distributed_lab/acs/unverified-svc/internal/service/api/handlers"
 	"gitlab.com/distributed_lab/ape"
 )
 

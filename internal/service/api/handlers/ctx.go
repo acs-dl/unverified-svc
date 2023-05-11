@@ -2,10 +2,9 @@ package handlers
 
 import (
 	"context"
-	"gitlab.com/distributed_lab/acs/unverified-svc/internal/data"
-	"net/http"
-
+	"github.com/acs-dl/unverified-svc/internal/data"
 	"gitlab.com/distributed_lab/logan/v3"
+	"net/http"
 )
 
 type ctxKey int

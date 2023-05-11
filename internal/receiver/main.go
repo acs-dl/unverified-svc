@@ -3,15 +3,15 @@ package receiver
 import (
 	"context"
 	"encoding/json"
+	"gitlab.com/distributed_lab/logan/v3"
 	"time"
 
 	"github.com/ThreeDotsLabs/watermill-amqp/v2/pkg/amqp"
 	"github.com/ThreeDotsLabs/watermill/message"
-	"gitlab.com/distributed_lab/acs/unverified-svc/internal/config"
-	"gitlab.com/distributed_lab/acs/unverified-svc/internal/data"
-	"gitlab.com/distributed_lab/acs/unverified-svc/internal/data/postgres"
-	"gitlab.com/distributed_lab/acs/unverified-svc/internal/processor"
-	"gitlab.com/distributed_lab/logan/v3"
+	"github.com/acs-dl/unverified-svc/internal/config"
+	"github.com/acs-dl/unverified-svc/internal/data"
+	"github.com/acs-dl/unverified-svc/internal/data/postgres"
+	"github.com/acs-dl/unverified-svc/internal/processor"
 	"gitlab.com/distributed_lab/logan/v3/errors"
 	"gitlab.com/distributed_lab/running"
 )
