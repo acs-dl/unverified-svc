@@ -1,0 +1,11 @@
+in: query
+name: 'page[sort]'
+required: false
+schema:
+  type: string
+  enum:
+    - created_at
+    - username
+    - name
+  default: created_at
+  description: Column by which sorting must be applied.

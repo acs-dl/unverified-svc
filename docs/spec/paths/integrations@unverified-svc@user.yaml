@@ -1,0 +1,26 @@
+get:
+  tags:
+    - Users
+  summary: Get unverified user
+  operationId: getUser
+  description: Endpoint for getting unverified user.
+  parameters:
+    - $ref: '#/components/parameters/moduleParam'
+    - $ref: '#/components/parameters/usernameParam'
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                $ref: '#/components/schemas/User'
+    '400':
+      description: Bad request.
+    '404':
+      description: Not found.
+    '500':
+      description: Internal server error.

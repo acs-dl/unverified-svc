@@ -1,0 +1,6 @@
+in: query
+name: 'filter[module]'
+required: false
+schema:
+  type: string
+  description: Parameter to get by module value.
